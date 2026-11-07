@@ -96,7 +96,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
     def script_readTablesWithHeader(self, gesture):
         self.start(True)
 
-    @script(description=_("實驗：建立或撤除目前網頁的原生表格導覽，建立後可按 T 與表格方向鍵"), category=_("通用表格閱讀器"), gesture="kb:NVDA+control+shift+y")
+    @script(description=_("建立或撤除目前網頁的原生表格導覽，建立後可按 T 與表格方向鍵"), category=_("通用表格閱讀器"), gesture="kb:NVDA+control+shift+y")
     def script_inPageTables(self, gesture):
         if self.bridge is not None and self.bridge.active:
             self.bridge.detach()
@@ -105,7 +105,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
             return
         self.start(False, inPage=True)
 
-    @script(description=_("實驗：建立原頁表格導覽，並以第一列當欄位標題"), category=_("通用表格閱讀器"))
+    @script(description=_("建立原頁表格導覽，並以第一列當欄位標題"), category=_("通用表格閱讀器"))
     def script_inPageTablesWithHeader(self, gesture):
         self.start(True, inPage=True)
 
@@ -141,11 +141,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
                 import buildVersion
                 from virtualBuffers import VirtualBuffer
                 if (buildVersion.version_year, buildVersion.version_major) != (2026, 3):
-                    ui.message(_("原頁導覽實驗只支援 NVDA 2026.3。"))
+                    ui.message(_("原頁導覽只支援 NVDA 2026.3。"))
                     return
                 document = root.treeInterceptor
                 if not isinstance(document, VirtualBuffer) or not document.isReady or document.passThrough:
-                    ui.message(_("請先切到網頁瀏覽模式；目前文件不支援這個實驗。"))
+                    ui.message(_("請先切到網頁瀏覽模式；目前文件不支援原頁表格導覽。"))
                     return
                 if self.bridge is not None:
                     self.bridge.detach()
@@ -188,7 +188,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
                         if not count:
                             ui.browseableMessage(
                                 _("未建立原頁表格。以下只包含原因代碼與列欄位置，沒有網頁文字或金鑰。請提供這份診斷結果。") + "\n\n" + bridge.diagnosticText(),
-                                title=_("原頁表格對應診斷 0.2.6-dev"), closeButton=True)
+                                title=_("原頁表格對應診斷 1.0"), closeButton=True)
                             return
                         bridge.install()
                         self.bridge = bridge

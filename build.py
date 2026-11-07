@@ -12,8 +12,8 @@ for path in files:
         ast.parse(path.read_text(encoding='utf-8'), feature_version=(3, 13))
 output = root / 'dist'
 output.mkdir(exist_ok=True)
-temporary = output / 'tableReader-0.2.6-dev.zip'
-final = output / 'tableReader-0.2.6-dev.nvda-addon'
+temporary = output / 'tableReader-1.0.zip'
+final = output / 'tableReader-1.0.nvda-addon'
 with zipfile.ZipFile(temporary, 'w', compression=zipfile.ZIP_DEFLATED) as archive:
     for path in files:
         archive.write(path, path.relative_to(source).as_posix())
@@ -23,7 +23,7 @@ with zipfile.ZipFile(final) as archive:
     assert archive.testzip() is None
     assert 'manifest.ini' in archive.namelist()
     assert 'globalPlugins/tableReader/__init__.py' in archive.namelist()
-    assert 'version = 0.2.6-dev' in archive.read('manifest.ini').decode('utf-8')
+    assert 'version = 1.0' in archive.read('manifest.ini').decode('utf-8')
     assert set(archive.namelist()) == {path.relative_to(source).as_posix() for path in files}
     for path in files:
         assert archive.read(path.relative_to(source).as_posix()) == path.read_bytes()
